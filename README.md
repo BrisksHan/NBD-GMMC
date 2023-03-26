@@ -4,4 +4,7 @@ Finding network biomarkers from gene co-expression networks (GCNs) has attracted
 
 This is our implementation of network biomarker detection using Gaussian mixture model.
 
-The input are TCGA file (please remove the second line of the TCGA files).
+The input are TCGA RNA sequence file that can be accessed from the official website of TCGA. 
+
+To use the please remove the second line of the TCGA files, the code will automatically generate sample labels based on the barcode of the samples.
+
