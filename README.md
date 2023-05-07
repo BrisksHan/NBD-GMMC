@@ -8,3 +8,5 @@ The input are TCGA RNA sequence file that can be accessed from the official webs
 
 To use the please remove the second line of the TCGA files, the code will automatically generate sample labels based on the barcode of the samples.
 
+If you have any problem in running our code, please do not heastite to contact me at hanzhang89@qq.com
+
