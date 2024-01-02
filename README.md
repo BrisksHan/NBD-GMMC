@@ -10,3 +10,15 @@ The first row should contains the barcode of the samples, and the following rows
 
 If you have any problem in running our code, please do not heastite to contact me at hanzhang89@qq.com
 
+If you find the proposed method useful, please consider citing it. 
+
+@article{zhang2023network,
+  title={Network Biomarker Detection From Gene Co-Expression Network Using Gaussian Mixture Model Clustering},
+  author={Zhang, Han and Zhu, Zexuan and Li, Hui and He, Shan},
+  journal={IEEE/ACM Transactions on Computational Biology and Bioinformatics},
+  volume={20},
+  number={06},
+  pages={3523--3534},
+  year={2023},
+  publisher={IEEE Computer Society}
+}
