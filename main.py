@@ -20,7 +20,7 @@ def parse_args():
                         help='normalworkernumber')
     parser.add_argument('--wworker', default=4,
                         help='walksworkernumber')
-    parser.add_argument('--projectname', default='TCGA_LIHC.txt',
+    parser.add_argument('--projectname', default='TCGA_BRCA.txt',
                         help='walksworkernumber')
     parser.add_argument('--window', default=5,
                         help='window size of deepwalk')
@@ -44,7 +44,7 @@ def parse_args():
     args = parser.parse_args()
     return args
 
-def data_with_validation(projectname, foldername, top_variance_number = 1000, ht = 0.01, st = 7,  workers = 3, emb_dim = 5, lg_dim = 4, walks_worker = 3, window = 5, walklength = 80, walknumber = 10, save_embedding = False):
+def data_with_validation(projectname, foldername, translate_implied_name = True, top_variance_number = 1000, ht = 0.01, st = 7,  workers = 3, emb_dim = 5, lg_dim = 4, walks_worker = 3, window = 5, walklength = 80, walknumber = 10, save_embedding = False):
 
     all_gene_names, all_gene_expression, sample_names = read_file.read_file(foldername+projectname)
     gene_names, gene_expression = SN_construction.select_top_variance_gene(all_gene_names, all_gene_expression, top_variance_number)
@@ -89,8 +89,10 @@ def data_with_validation(projectname, foldername, top_variance_number = 1000, ht
             cluster_gene_names.append(gene_names[int(cluster_indexes[i])])
 
         new_cluster_expressions = get_sample_expressions(gene_names, cluster_gene_names, gene_expression, sample_names)
-        
-        labels = utils.get_sample_implied_labels(sample_names)
+        if translate_implied_name == True:
+            labels = utils.get_sample_implied_labels(sample_names)
+        else: 
+            labels = sample_names
         print("sample number:",len(labels))
         transposed_result = np.transpose(new_cluster_expressions)
         eigengene = Eigengene_significance.PCA_decomposition(transposed_result)#astype(float)
@@ -155,13 +157,15 @@ def NBD_GMMC(args):#KIRC/KIRC_all_data_
     ht = float(args.ht)
     st = float(args.st)
 
+    translate_implied_name = bool(args.translate_implied_name)
+
     emb_dim = int(args.dim)
 
     print('project_name:', project_file_name)
     all_evaluation = []
 
 
-    current_evaluation = data_with_validation(project_file_name, input_folder, top_variance_number = top_variance_number, ht = ht, st = st, workers= normal_worker, emb_dim = emb_dim, walks_worker = walks_worker, window = window, walklength = walklength, walknumber = walknumber, save_embedding = save_embedding)
+    data_with_validation(project_file_name, input_folder, translate_implied_name = translate_implied_name, top_variance_number = top_variance_number, ht = ht, st = st, workers= normal_worker, emb_dim = emb_dim, walks_worker = walks_worker, window = window, walklength = walklength, walknumber = walknumber, save_embedding = save_embedding)
     #all_evaluation.append(current_evaluation)
 
     #output_name = output_folder + project_file_name+'_'+str(window)+'_'+str(emb_dim)+'_'+str(st)+'_'+str(ht)+'.csv'
