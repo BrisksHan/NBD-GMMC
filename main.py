@@ -20,7 +20,7 @@ def parse_args():
                         help='normalworkernumber')
     parser.add_argument('--wworker', default=4,
                         help='walksworkernumber')
-    parser.add_argument('--projectname', default='TCGA_BRCA.txt',
+    parser.add_argument('--projectname', default='demo.txt',
                         help='walksworkernumber')
     parser.add_argument('--window', default=5,
                         help='window size of deepwalk')
